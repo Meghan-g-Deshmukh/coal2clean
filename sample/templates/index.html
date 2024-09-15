@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coal2Clean</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: whitesmoke;
+        }
+        .navbar {
+            background-color: #003366;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .navbar img {
+            height: 120px;
+            width: auto;
+            margin-right: 100px;
+        }
+        .navbar .title {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar .title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .navbar .title span {
+            display: inline-block;
+        }
+        .navbar .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .navbar .buttons a {
+            text-decoration: none;
+        }
+        .navbar .buttons button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .navbar .buttons button:hover {
+            background-color: darkgreen; 
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+        .footer a {
+            color: green;
+            text-decoration: none;
+        }
+
+        .animation-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 500px; 
+            margin: 20px 0;
+            background-color: #eef0f2;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: black;
+            text-align: center;
+            z-index: 20; 
+            padding: 20px;
+            font-family: 'Times New Roman', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .text-overlay h2 {
+            font-size: 36px;
+            margin: 0 0 10px 0;
+            color:black; 
+        }
+
+        .text-overlay p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 0;
+            color:darkgreen;
+        }
+
+        .tree {
+            width: 950px;
+            height: 1000px; 
+            position: absolute;
+            left: -25%; 
+            top: 60%;
+            transform: translateY(-50%); 
+        }
+
+        .new-animation {
+            width: 400px; 
+            height: 400px; 
+            position: absolute;
+            right: 0; 
+            top: 85%; 
+            transform: translateY(-50%); 
+        }
+
+       
+        .co2 {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 30% 30%, rgba(128, 128, 128, 0.8), rgba(169, 169, 169, 0.6));
+            border: 2px solid rgba(192, 192, 192, 0.5);
+            border-radius: 50%;
+            color: white;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px rgba(128, 128, 128, 0.4);
+        }
+
+       
+        @keyframes moveRandom {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            25% {
+                transform: translate(-15vw, -15vh);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(-30vw, -30vh);
+                opacity: 0.5;
+            }
+            75% {
+                transform: translate(-45vw, -45vh);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(-60vw, -60vh);
+                opacity: 0;
+            }
+        }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <div class="title">
+            <h1>
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Coal</span>
+                <span style="font-size: 100px; color: black;">2</span>
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Clean</span>
+            </h1>
+        </div>
+        <div class="buttons">
+            <a href="{{ url_for('register') }}"><button aria-label="Register">Register</button></a>
+            <a href="/login"><button aria-label="Login">Login</button></a>
+            <a href="/about"><button aria-label="About Us">About Us</button></a>
+        </div>
+    </div>
+
+    <div class="animation-container">
+      
+        <div class="text-overlay">
+            <h2>Welcome to Coal2Clean</h2>
+            <p>Our mission is to analyze and mitigate carbon emissions from coal mining, and to explore innovative solutions such as carbon credits and carbon sinks. Discover how we are paving the way towards a sustainable and cleaner future.</p>
+        </div>
+
+      
+        <div id="tree-animation" class="tree"></div>
+      
+        
+        <div id="new-animation" class="new-animation"></div>
+
+      
+        <div class="co2" style="top: 85%; left: 85%; animation: moveRandom 10s infinite ease-in-out;">CO2</div>
+        <div class="co2" style="top: 90%; left: 80%; animation: moveRandom 12s infinite ease-in-out;">CO2</div>
+        <div class="co2" style="top: 95%; left: 75%; animation: moveRandom 15s infinite ease-in-out;">CO2</div>
+        
+    </div>
+
+    <div class="footer">
+        &copy; 2024 All rights reserved. <br> Contact us: <a href="mailto:contact@coal2clean.com">contact@coal2clean.com</a>
+    </div>
+
+    <script>
+      
+        var treeAnimation = lottie.loadAnimation({
+            container: document.getElementById('tree-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://lottie.host/bc6932a9-65e7-4c1c-b417-de7375644781/ezbY3ZFEaw.json' 
+        });
+
+        
+        var newAnimation = lottie.loadAnimation({
+            container: document.getElementById('new-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://lottie.host/5197c40b-d1b3-4103-829d-58c968db2060/Gk2ZtEgFcG.json',
+            rendererSettings: {
+                preserveAspectRatio: 'xMidYMid slice'
+            }
+        });
+
+       
+        newAnimation.setSpeed(0.5); 
+    </script>
+</body>
+</html>

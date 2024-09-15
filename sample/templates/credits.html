@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Carbon Credits</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: whitesmoke;
+        }
+        .navbar {
+            background-color:#003366;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .navbar img {
+            height: 120px;
+            width: auto;
+            margin-right: 100px;
+        }
+        .navbar .title {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar .title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .navbar .title span {
+            display: inline-block;
+        }
+        .navbar .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .navbar .buttons a {
+            text-decoration: none;
+        }
+        .navbar .buttons button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+        .footer a {
+            color: green;
+            text-decoration: none;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .form-container h2 {
+            margin-top: 0;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 36px;
+        }
+        .form-container div {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <div class="title">
+            <h1> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Coal</span> 
+                <span style="font-size: 100px; color: black;">2</span> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Clean</span> 
+            </h1>
+        </div>
+        <div class="buttons">
+           
+            <a href="/"><button aria-label="Logout">Logout</button></a>
+        </div>
+    </div>
+
+    <div style="flex: 1; padding: 20px;">
+       
+        <div class="form-container">
+            <h2>Carbon Credits for 193.5 Tons</h2>
+            <div id="result"></div>
+        </div>
+    </div>
+    <a href="/profile"><button style=" background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+       margin-left: 480px;
+       margin-bottom: 500px;
+        font-size: 16px;" aria-label="back"
+        >profile</button></a>
+    <div class="footer">
+        &copy; 2024 All rights reserved. <br> Contact us: <a href="mailto:contact@coal2clean.com">contact@coal2clean.com</a>
+    </div>
+
+    <script>
+       
+        const PRICE_PER_CREDIT_INR = 28.3; 
+        const emissions = 193.5; 
+
+
+        var credits = emissions; 
+        
+        
+        var totalPrice = credits * PRICE_PER_CREDIT_INR;
+        
+       
+        document.getElementById('result').innerHTML = 
+            'Number of Carbon Credits: ' + credits.toFixed(2) + '<br>' +
+            'Current Price per Carbon Credit: ₹' + PRICE_PER_CREDIT_INR.toFixed(2) + '<br>' +
+            'Total Price: ₹' + totalPrice.toFixed(2);
+    </script>
+</body>
+</html>

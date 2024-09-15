@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Coal2Clean</title>
+    <style>
+        html, body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .navbar {
+            background-color: #003366;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .navbar img {
+            height: 120px;
+            width: auto;
+            margin-right: 100px;
+        }
+        .navbar .title {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar .title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .navbar .title span {
+            display: inline-block;
+        }
+        .navbar .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .navbar .buttons a {
+            text-decoration: none;
+        }
+        .navbar .buttons button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+        .footer a {
+            color: green;
+            text-decoration: none;
+        }
+        .content {
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .login-form {
+            max-width: 400px;
+            width: 100%;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .login-form h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #003366;
+        }
+        .login-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-form button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        .login-form a {
+            color: #003366;
+            text-decoration: none;
+        }
+        .login-form a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <div class="title">
+            <h1> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Coal</span> 
+                <span style="font-size: 100px; color: black;">2</span> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Clean</span> 
+            </h1>
+        </div>
+        <div class="buttons">
+            <a href="/"><button aria-label="Home">Home</button></a>
+            <a href="/register"><button aria-label="Register">Register</button></a>
+            <a href="/about"><button aria-label="about">About us</button></a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="login-form">
+            <h2>Login</h2>
+            <form action="/login" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/register">Register here</a></p>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 All rights reserved. <br> Contact us: <a href="mailto:contact@coal2clean.com">contact@coal2clean.com</a>
+    </div>
+</body>
+</html>

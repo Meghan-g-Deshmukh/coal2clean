@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coal Mine Profile - Coal2Clean</title>
+    <style>
+        html {
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; /* Hide horizontal scroll bar */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+        .navbar {
+            background-color: #003366;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar img {
+            height: 120px;
+            width: auto;
+            margin-right: 20px;
+        }
+        .navbar .title {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar .title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .navbar .title span {
+            display: inline-block;
+        }
+        .navbar .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .navbar .buttons a {
+            text-decoration: none;
+        }
+        .navbar .buttons button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            margin: 100px 20px 20px; /* Adjusted margin to account for navbar height */
+            gap: 20px;
+            overflow: hidden; /* Prevent content from overflowing */
+        }
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between the cards */
+            flex: 1;
+        }
+        .profile-info-card, .carbon-sink-card, .suggestions-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Prevent content from overflowing */
+        }
+        .profile-info-card {
+            background: #e0f7fa; /* Light blue background for profile info card */
+        }
+        .carbon-sink-card {
+            background: #e8f5e9; /* Light green background for carbon sink card */
+        }
+        .suggestions-card {
+            background: #fff3e0; /* Light orange background for suggestions card */
+        }
+        .profile-info-card h2, .carbon-sink-card h3, .suggestions-card h3 {
+            margin-top: 0;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .profile-info-card h2 {
+            font-size: 24px;
+            color: #004d40; /* Darker blue-green color for profile info card */
+        }
+        .carbon-sink-card h3 {
+            font-size: 20px;
+            color: #2e7d32; /* Darker green color for carbon sink card */
+        }
+        .suggestions-card h3 {
+            font-size: 20px;
+            color: #ff5722; /* Darker orange color for suggestions card */
+        }
+        .profile-info-card .info-item, .carbon-sink-card .info-item, .suggestions-card .info-item {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .profile-info-card .info-item span, .carbon-sink-card .info-item span, .suggestions-card .info-item span {
+            font-weight: bold;
+        }
+        .emission-section {
+            flex: 2;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between the details and the graph section */
+        }
+        .emission-controls {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px; /* Space between the emission controls and the GIF */
+        }
+        .details {
+            flex: 1;
+        }
+        .emission-section h2 {
+            margin-top: 0;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .emission-controls .month-select {
+            margin-bottom: 20px;
+        }
+        .emission-controls .month-select label {
+            font-weight: bold;
+        }
+        .emission-controls .month-select select {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .emission-controls .button-group {
+            margin-top: 20px;
+        }
+        .emission-controls .button-group button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .graph-section {
+            width: 100%;
+        }
+        .graph-section h3 {
+            margin-top: 0;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .graph-section img {
+            width: 100%; 
+            height: auto; 
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+        .footer a {
+            color: green;
+            text-decoration: none;
+        }
+        .activity-emission-button {
+            display: inline-block;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px; 
+        }
+        .dotlottie-container {
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <div class="title">
+            <h1> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Coal</span> 
+                <span style="font-size: 100px; color:white;">2</span> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Clean</span> 
+            </h1>
+        </div>
+        <div class="buttons">
+            <a href="/"><button aria-label="Home">Home</button></a>
+            <a href="/about"><button aria-label="About Us">About Us</button></a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="profile-info-card">
+                <h2>Coal Mine Profile</h2>
+                <div class="info-item">
+                    <span>Name:</span> Bhubaneshwar OC 
+                </div>
+                <div class="info-item">
+                    <span>Type:</span> Open-cast
+                </div>
+                <div class="info-item">
+                    <span>Location:</span> Odisha
+                </div>
+                <div class="info-item">
+                    <span>Contact Number:</span> 6760-240113
+                </div>
+                <div class="info-item">
+                    <span>Email:</span> bcml@adityabirla.com
+                </div>
+                <div class="info-item">
+                    <span>Government Registration Number:</span> GOV12348
+                </div>
+                <div class="info-item">
+                    <span>Type of Ownership:</span> Private
+                </div>
+                <div class="info-item">
+                    <span>Licence Number:</span> LIC98768
+                </div>
+                <div class="info-item">
+                    <span>Mine Manager Name:</span> Dibyaranjan Mohanty
+                </div>
+                <div class="info-item">
+                    <span>Manager Contact Details:</span> 9456789013
+                </div>
+            </div>
+
+            <div class="carbon-sink-card">
+                <h3>Carbon Sink Details</h3>
+                <div class="info-item">
+                    <span>Nearby Forest Area:</span> 1500 hectares
+                </div>
+                <div class="info-item">
+                    <span>Carbon Sequestration Rate:</span> 2.5 million tons/year
+                </div>
+                <div class="info-item">
+                    <span>Additional Measures:</span> Reforestation projects
+                </div>
+            </div>
+            
+            <div class="suggestions-card">
+                <h3>Suggestions</h3>
+                <div class="info-item">
+                    <span>Suggestion 1:</span> Implement advanced emission control technologies.
+                </div>
+                <div class="info-item">
+                    <span>Suggestion 2:</span> Enhance monitoring and reporting of emissions.
+                </div>
+                <div class="info-item">
+                    <span>Suggestion 3:</span> Increase community engagement and transparency.
+                </div>
+            </div>
+        </div>
+
+        <div class="emission-section">
+            <div class="emission-controls">
+                <div class="details">
+                    <h2>Emission Data</h2>
+                    <a href="/activity" class="activity-emission-button">Activity Emission</a>
+                    <a href="/credits" class="activity-emission-button">Carbon Credits</a>
+                    <div class="month-select">
+                        <label for="year">Select Year:</label>
+                        <select id="year">
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                        <br><br>
+                        <label for="month">Select Month:</label>
+                        <select id="month" onchange="showEmissionData()">
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="viewReport()">View Report</button>
+                        <button onclick="downloadReport()">Download Report</button>
+                    </div>
+                </div>
+                <div class="dotlottie-container">
+                    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+                    <dotlottie-player src="https://lottie.host/4672a8d5-4192-43fc-ba39-bec3a84986b3/i94scyaPJ8.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+                </div>
+            </div>
+            <div class="graph-section">
+                <h3>Gap Analysis</h3>
+                <img src="https://via.placeholder.com/600x400.png?text=Gap+Analysis+Graph" alt="Gap analysis Graph">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 All rights reserved.
+    </div>
+</body>
+</html>

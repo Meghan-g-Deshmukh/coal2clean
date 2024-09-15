@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coal2Clean</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: whitesmoke;
+        }
+        .navbar {
+            background-color:#003366;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .navbar img {
+            height: 120px;
+            width: auto;
+            margin-right: 100px;
+        }
+        .navbar .title {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar .title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .navbar .title span {
+            display: inline-block;
+        }
+        .navbar .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .navbar .buttons a {
+            text-decoration: none;
+        }
+        .navbar .buttons button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+        .footer a {
+            color: green;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .navbar .title h1 {
+                font-size: 20px;
+            }
+            .navbar .buttons button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .form-container h2 {
+            margin-top: 0;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 36px;
+        }
+        .form-container label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .form-container input, 
+        .form-container select {
+            width: 500px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-container .asterisk {
+            color: red;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <div class="title">
+            <h1> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Coal</span> 
+                <span style="font-size: 100px; color: black;">2</span> 
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Clean</span> 
+            </h1>
+        </div>
+        <div class="buttons">
+            <a href="/"><button aria-label="Home">Home</button></a>
+            <a href="/login"><button aria-label="Login">Login</button></a>
+            <a href="/about"><button aria-label="About Us">About Us</button></a>
+        </div>
+    </div>
+
+    <div style="flex: 1; padding: 20px;">
+        
+        <div class="form-container">
+            <h2>Coal Mine Registration</h2>
+            <form id="register-form" action="/register" method="POST">
+               
+               
+                <label for="coal-mine-name">Coal Mine Name: <span class="asterisk">*</span></label>
+                <input type="text" id="coal-mine-name" name="coal_mine_name" placeholder="Enter coal mine name" required>
+
+                <label for="type">Type: <span class="asterisk">*</span></label>
+                <select id="type" name="type" required>
+                    <option value="" disabled selected>Select type</option>
+                    <option value="underground">Underground</option>
+                    <option value="open_cast">Open Cast</option>
+                </select>
+
+                <label for="location">Location: <span class="asterisk">*</span></label>
+                <select id="location" name="location" required>
+                    <option value="" disabled selected>Select state</option>
+                    <option value="mine_id">Mine ID</option>
+                   
+                    <option value="andhra_pradesh">Andhra Pradesh</option>
+                    <option value="arunachal_pradesh">Arunachal Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="chandigarh">Chandigarh</option>
+                    <option value="chhattisgarh">Chhattisgarh</option>
+                    <option value="dadar_and_nagar_haveli">Dadar and Nagar Haveli</option>
+                    <option value="daman_and_diu">Daman and Diu</option>
+                    <option value="goa">Goa</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="himachal_pradesh">Himachal Pradesh</option>
+                    <option value="jharkhand">Jharkhand</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="laddakh">Laddakh</option>
+                    <option value="lakshadweep">Lakshadweep</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="manipur">Manipur</option>
+                    <option value="meghalaya">Meghalaya</option>
+                    <option value="mizoram">Mizoram</option>
+                    <option value="nagaland">Nagaland</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="puducherry">Puducherry</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="sikkim">Sikkim</option>
+                    <option value="tamil_nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="tripura">Tripura</option>
+                    <option value="uttar_pradesh">Uttar Pradesh</option>
+                    <option value="uttarakhand">Uttarakhand</option>
+                    <option value="west_bengal">West Bengal</option>
+                </select>
+
+                <label for="contact_number">Contact Number: <span class="asterisk">*</span></label>
+                <input type="tel" id="contact_number" name="contact_number" placeholder="Enter contact number" required>
+
+                <label for="email">Email: <span class="asterisk">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Enter email address" required>
+
+                <label for="govt-registration">Government Registration Number: <span class="asterisk">*</span></label>
+                <input type="text" id="govt-registration" name="govt_registration" placeholder="Enter government registration number" required>
+
+                <label for="ownership">Type of Ownership: <span class="asterisk">*</span></label>
+                <select id="ownership" name="ownership" required>
+                    <option value="" disabled selected>Select ownership type</option>
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                    <option value="joint_venture">Joint Venture</option>
+                </select>
+
+                <label for="licence-number">Licence Number: <span class="asterisk">*</span></label>
+                <input type="text" id="licence-number" name="licence_number" placeholder="Enter licence number" required>
+
+                <label for="manager-name">Mine Manager Name: <span class="asterisk">*</span></label>
+                <input type="text" id="manager-name" name="manager_name" placeholder="Enter mine manager name" required>
+
+                <label for="manager-contact">Manager Contact Details: <span class="asterisk">*</span></label>
+                <input type="tel" id="manager-contact" name="manager_contact" placeholder="Enter manager contact details" required>
+
+                
+                <label for="password">Password: <span class="asterisk">*</span></label>
+                <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+                <label for="confirm-password">Confirm Password: <span class="asterisk">*</span></label>
+                <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm password" required>
+
+                <button type="submit">Register Mine</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 All rights reserved. <br> Contact us: <a href="mailto:contact@coal2clean.com">contact@coal2clean.com</a>
+    </div>
+</body>
+</html>

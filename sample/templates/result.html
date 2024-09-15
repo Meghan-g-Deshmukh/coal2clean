@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emission Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .result-summary {
+            margin-bottom: 20px;
+        }
+        .result-summary h3 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Emission Calculation Results</h2>
+
+      
+        <div class="result-summary">
+            <h3>Total Emissions: {{ total_emissions }} kg CO<sub>2</sub></h3>
+            <h3>Per Capita Emissions: {{ per_capita_emissions }} kg CO<sub>2</sub></h3>
+        </div>
+
+       
+        <canvas id="emissionChart"></canvas>
+
+        <a href="/activity"><button style=" background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;" aria-label="back">Back</button></a>
+        <script>
+            
+            const activities = {{ activities_type | tojson | safe }};
+            const emissions = {{ emissions_values | tojson | safe }};
+
+           
+            const ctx = document.getElementById('emissionChart').getContext('2d');
+            const emissionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: activities, 
+                    datasets: [{
+                        label: 'Emissions (kg CO2)',
+                        data: emissions, 
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Emissions (kg CO2)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Activity Type'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

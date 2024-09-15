@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Emissions Calculator</title>
+    <style>
+        html, body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f4f4f9;
+            color: #333;
+            overflow: hidden; 
+        }
+
+        .navbar {
+            background-color: #003366;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+
+        .navbar img {
+            height: 120px;
+            width: auto;
+            margin-right: 100px;
+        }
+
+        .navbar .title {
+            flex: 1;
+            text-align: center;
+        }
+
+        .navbar .title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .navbar .buttons a {
+            text-decoration: none;
+        }
+
+        .navbar .buttons button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            margin-top: 30px;
+            font-size: 1.8rem;
+            color: #2980b9;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        input[type="number"],
+        select {
+            padding: 8px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2ecc71;
+        }
+
+        form {
+            margin: 20px 0;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .input-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: all 0.5s ease;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .input-section.moved {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 40%;
+            max-width: 100%;
+            box-sizing: border-box;
+            height: 100%;
+            overflow: hidden;
+            padding:40px;
+        }
+
+        .right-section {
+            width: 60%;
+            max-width: 100%; 
+            box-sizing: border-box;
+            height: 100%;
+            overflow: hidden;
+            padding-right: 40px;
+        }
+
+        @media (max-width: 1000px) {
+            .input-section.moved {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        .footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: green;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <div class="title">
+            <h1>
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Coal</span>
+                <span style="font-size: 100px; color: black;">2</span>
+                <span style="color: rgb(0, 213, 0); font-size: 50px;">Clean</span>
+            </h1>
+        </div>
+        <div class="buttons">
+            <a href="/"><button aria-label="Home">Home</button></a>
+            <a href="/about"><button aria-label="About Us">About Us</button></a>
+            <a href="/register"><button aria-label="Register">Register</button></a>
+        </div>
+    </div>
+
+    <h1>Carbon Emissions Calculator</h1>
+
+    <div class="input-section" id="input_section">
+        
+        <div class="left-section">
+            <div>
+                <label for="people_count">Enter Number of People Associated with the Mine:</label>
+                <input type="number" name="people_count" id="people_count" min="1" required>
+            </div>
+
+            <div>
+                <label for="activity_select">Select Activity:</label>
+                <select id="activity_select">
+                    <option value="">--Select Activity--</option>
+                    <option value="excavation">Excavation</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="equipment">Equipment</option>
+                    <option value="blasting">Blasting</option>
+                </select>
+            </div>
+        </div>
+
+       
+        <div class="right-section">
+           
+            <div id="excavation_form" class="form-container">
+                <h2>Excavation</h2>
+                <form method="POST" action="/activity" id="excavation_form_inner">
+                    <input type="hidden" name="activity_type" value="excavation">
+                    <input type="hidden" name="people_count" id="hidden_people_count_excavation">
+                    <label for="coal_mined">Amount of Coal Mined (tons):</label>
+                    <input type="number" name="coal_mined" step="0.01" required>
+                    <input type="submit" value="Calculate Emissions">
+                </form>
+            </div>
+
+            <!-- Transportation Form -->
+            <div id="transportation_form" class="form-container">
+                <h2>Transportation</h2>
+                <form method="POST" action="/activity" id="transportation_form_inner">
+                    <input type="hidden" name="activity_type" value="transportation">
+                    <input type="hidden" name="people_count" id="hidden_people_count_transportation">
+                    <label for="vehicle_type">Vehicle Type:</label>
+                    <select name="vehicle_type" required>
+                        <option value="">--Select Vehicle--</option>
+                        <option value="truck">Truck</option>
+                        <option value="car">Car</option>
+                        <option value="motorbike">Motorbike</option>
+                        <option value="train">Train</option>
+                    </select>
+                    <label for="fuel_type">Fuel Type:</label>
+                    <select name="fuel_type" required>
+                        <option value="">--Select Fuel--</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="petrol">Petrol</option>
+                        <option value="electric">Electric</option>
+                    </select>
+                    <label for="distance_travelled">Distance travelled(km)</label>
+                    <input type="number" name="distance_travelled" required ><br>
+                    <input type="submit" value="Calculate Emissions">
+                </form>
+            </div>
+
+            
+            <div id="equipment_form" class="form-container">
+                <h2>Equipment Usage</h2>
+                <form method="POST" action="/activity" id="equipment_form_inner">
+                     <input type="hidden" name="activity_type" value="equipment">
+                    <input type="hidden" name="people_count" id="hidden_people_count_equipment">
+                    <label for="equipment_type">Equipment Type:</label>
+                    <select name="equipment_type" required>
+                        <option value="">--Select Equipment--</option>
+                        <option value="excavator">Excavator</option>
+                        <option value="bulldozer">Bulldozer</option>
+                        <option value="crane">Crane</option>
+                        <option value="generator">Generator</option>
+                    </select><br>
+                    <label for="fuel_type">Fuel Type:</label>
+                    <select name="fuel_type" required>
+                        <option value="">--Select Fuel--</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="petrol">Petrol</option>
+                        <option value="electric">Electric</option>
+                        <option value="natural_gas">Natural Gas</option>
+                    </select><br>
+                    <label for="fuel_consumption_rate">Fuel consumption rate(liters/hours):</label>
+                    <input type="number" name="fuel_consumption_rate"  required><br>
+                    <label for="hours_used">Hours Used:</label>
+                    <input type="number" name="hours_used" step="0.1" required><br>
+                    <input type="submit" value="Calculate Emissions">
+                </form>
+            </div>
+            
+            <div id="blasting_form" class="form-container">
+                <h2>Blasting</h2>
+                <form method="POST" action="/activity" id="blasting_form_inner">
+                    <input type="hidden" name="activity_type" value="blasting">
+                    <input type="hidden" name="people_count" id="hidden_people_count_blasting">
+                    <label for="explosive_type">Type of Explosive Used:</label>
+                    <select name="explosive_type" required>
+                        <option value="">--Select Explosive--</option>
+                        <option value="ammonium_nitrate">Ammonium Nitrate</option>
+                        <option value="tnt">TNT</option>
+                        <option value="dynamite">Dynamite</option>
+                        <option value="petn">PETN</option>
+                    </select><br>
+                    <label for="explosive_amount">Amount of Explosive Used (kg):</label>
+                    <input type="number" name="explosive_amount" step="0.1" required><br>
+                    <input type="submit" value="Calculate Emissions">
+                </form>
+            </div>
+
+            
+
+        </div>
+    </div>
+        
+    <a href="/profile"><button style=" background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+       margin-left: 600px;
+        font-size: 16px;" aria-label="back"
+        >profile</button></a>
+    <div class="footer">
+        <p>&copy; 2024 Coal2Clean. All Rights Reserved. | <a href="/contact">Contact Us</a></p>
+    </div>
+
+    <script>
+        document.getElementById('activity_select').addEventListener('change', function() {
+    document.querySelectorAll('.form-container').forEach(function(container) {
+        container.style.display = 'none';
+    });
+
+    const selectedActivity = this.value;
+    if (selectedActivity) {
+        document.getElementById(`${selectedActivity}_form`).style.display = 'block';
+        const peopleCount = document.getElementById('people_count').value;
+        if (peopleCount) {
+            document.getElementById(`${selectedActivity}_form`).querySelector(`#hidden_people_count_${selectedActivity}`).value = peopleCount;
+        } else {
+            document.getElementById(`${selectedActivity}_form`).querySelector(`#hidden_people_count_${selectedActivity}`).value = '';
+        }
+    }
+});
+        const activitySelect = document.getElementById('activity_select');
+        const excavationForm = document.getElementById('excavation_form');
+        const transportationForm = document.getElementById('transportation_form');
+        const equipmentForm = document.getElementById('equipment_form');
+        const blastingForm = document.getElementById('blasting_form');
+        const inputSection = document.getElementById('input_section');
+
+        function resetForms() {
+            excavationForm.style.display = 'none';
+            transportationForm.style.display = 'none';
+            equipmentForm.style.display = 'none';
+            blastingForm.style.display = 'none';
+        }
+
+        activitySelect.addEventListener('change', function () {
+            resetForms();
+            inputSection.classList.add('moved');
+            const selectedActivity = activitySelect.value;
+            if (selectedActivity === 'excavation') {
+                excavationForm.style.display = 'block';
+            } else if (selectedActivity === 'transportation') {
+                transportationForm.style.display = 'block';
+            } else if (selectedActivity === 'equipment') {
+                equipmentForm.style.display = 'block';
+            } else if (selectedActivity === 'blasting') {
+                blastingForm.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
