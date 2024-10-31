@@ -1,5 +1,5 @@
 
-At coal 2 clean , we are dedicated to helping industries and organizations understand and minimize the environmental impact of coal mining. With a strong focus on carbon footprint analysis, our team combines expertise in data analysis, sustainability practices, and environmental science to provide accurate, actionable insights.
+At Coal2clean , we are dedicated to helping industries and organizations understand and minimize the environmental impact of coal mining. With a strong focus on carbon footprint analysis, our team combines expertise in data analysis, sustainability practices, and environmental science to provide accurate, actionable insights.
 
 Our Mission
 Our mission is to empower the coal mining sector to make informed decisions about their carbon emissions, leading to a reduction in their environmental footprint. We believe that by providing detailed carbon footprint assessments, we can help coal mines transition towards more sustainable practices and contribute to global climate goals.
